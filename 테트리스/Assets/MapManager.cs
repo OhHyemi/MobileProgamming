@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
-    private int width = 10;
-    private int height = 20;
+    private int width;
+    private int height;
     protected GameObject[,] map; 
     private bool isBuilt = false;
     Material cubeMaterial;
@@ -18,7 +18,7 @@ public class MapManager : MonoBehaviour
             {
               
                 var mapBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                mapBox.transform.position = new Vector3(x , y , 0);
+                mapBox.transform.position = new Vector3(x * 1.2f , y * 1.2f, 0);
                 Renderer rend = mapBox.GetComponent<Renderer>();
                 rend.material = cubeMaterial;
                 map[x, y] = mapBox;
@@ -30,7 +30,9 @@ public class MapManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        map = new GameObject[width, height];
+        map = new GameObject[10, 20];
+        width = 12;
+        height = 24;
         cubeMaterial = new Material(Resources.Load("TranslucentCubeMaterial") as Material);
         buildMap();
         isBuilt = true;
