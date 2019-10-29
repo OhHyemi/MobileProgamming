@@ -27,6 +27,7 @@ public class BlockSpawner : MonoBehaviour
         
     }
 
+    //블록 스폰
     private void spawnBlock()
     {
        needBlockSpawn = false;

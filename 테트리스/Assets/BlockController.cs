@@ -6,9 +6,6 @@ public class BlockController : MonoBehaviour
 {
     // protected GameObject block;
     public Transform[] blockChildren;
-    private float speed = 3.6f;
-    private float maxSpeed = 28.8f;
-
     private MapManager map;
     public BlockSpawner blockSpawner;
 
@@ -71,41 +68,26 @@ public class BlockController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            
-            while(!isPlaced())
+
+            while (!isPlaced())
             {
                 transform.position += Vector3.down * 1.2f;
             }
+            timer = timerCount;
 
         }
 
-        if (isPlaced())
+        if (timer > timerCount)
         {
-           
-            foreach (Transform block in blockChildren)
+            if (isPlaced())
             {
                 active = false;
                 blockSpawner.needBlockSpawn = true;
-                block.transform.tag = "Block";
-                if (block == blockChildren[0])
-                      continue;
-                map.upper = map.upper > block.position.y ? map.upper : block.position.y;
 
-                int x = map.getIndexX(block.position.x);
-                int y = map.getIndexY(block.position.y);
-
-                map.mapOcuppied[x, y] = true;
-                map.blockCubes[x, y] = block.gameObject;                   
-                                                         
-            }
-                
+                pushInMap();
+       
                 return;
             }
-
-        //transform.position += Vector3.down * speed * Time.deltaTime;
-        
-        if (timer > timerCount)
-        {
             transform.position += Vector3.down * 1.2f;
             timer = 0;
         }
@@ -114,20 +96,12 @@ public class BlockController : MonoBehaviour
         return;
     }
 
-   
+
 
     private bool isHitOthersRight()
     {
         foreach (Transform child in blockChildren)
         {
-            //Ray ray = new Ray(child.position, Vector3.right);
-            //RaycastHit rayHit;
-
-            //if (Physics.Raycast(ray, out rayHit, 0.6f))
-            //{
-            //    if (rayHit.transform.tag == "Block")
-            //        return true;
-            //}
             int x = map.getIndexX(child.position.x);
             int y = map.getIndexY(child.position.y);
 
@@ -146,14 +120,6 @@ public class BlockController : MonoBehaviour
     {
         foreach (Transform child in blockChildren)
         {
-            //Ray ray = new Ray(child.position, Vector3.left);
-            //RaycastHit rayHit;
-            //if (Physics.Raycast(ray, out rayHit, 0.6f))
-            //{
-            //    if (rayHit.transform.tag == "Block")
-            //        return true;
-            //}
-
             int x = map.getIndexX(child.position.x);
             int y = map.getIndexY(child.position.y);
 
@@ -163,7 +129,7 @@ public class BlockController : MonoBehaviour
             }
 
             if (map.mapOcuppied[x - 1, y])
-            {   
+            {
                 return true;
             }
 
@@ -177,31 +143,18 @@ public class BlockController : MonoBehaviour
     {
         foreach (Transform child in blockChildren)
         {
-            //Ray ray = new Ray(child.position, Vector3.down);
-            //RaycastHit rayHit;
-            //Debug.DrawRay(child.position, Vector3.down, Color.red);
-            //if (Physics.Raycast(ray, out rayHit, 0.6f))
-            //{
-            //    if (rayHit.transform.tag == "Ground" || rayHit.transform.tag == "Block")
 
-            //        return true;
-            //}
             if (child.position.y > map.getHeight())
                 return false;
-                
-            
+
             int x = map.getIndexX(child.position.x);
             int y = map.getIndexY(child.position.y);
 
-             if (y == 0)
+            if (y == 0)
                 return true;
-           
-            if ( map.mapOcuppied[x, y - 1])
-            {
-                   
+
+            if (map.mapOcuppied[x, y - 1])
                 return true;
-            }
-            
 
         }
         return false;
@@ -238,31 +191,39 @@ public class BlockController : MonoBehaviour
         if (transform.name == "Block5(Clone)")
             return;
         transform.Rotate(new Vector3(0, 0, 90));
-        
+
 
         foreach (Transform child in blockChildren)
         {
-            if(transform.name == "Block4(Clone)")
-            {
-                if (child.transform.position.x >= map.getWidth() - 2.4f || child.transform.position.x <= 1.2f)
-                    transform.Rotate(new Vector3(0, 0, -90));
-                return;
-            }
-
-            if (child.transform.position.x >= map.getWidth() || child.transform.position.x <= 0)
+            if (child.transform.position.x > map.getWidth() + 0.5f || child.transform.position.x < -0.5f)
             {
                 transform.Rotate(new Vector3(0, 0, -90));
                 return;
             }
         }
 
-        //if (isHitOthersLeft() || isHitOthersRight())
-        //{
-        //    transform.Rotate(new Vector3(0, 0, -90));
-        //    return;
-        //}
-        
-       
+    }
+
+    private void pushInMap()
+    {
+        foreach (Transform block in blockChildren)
+        {
+            block.transform.tag = "Block";
+            if (block == blockChildren[0])
+                continue;
+
+            map.upper = map.upper > block.position.y ? map.upper : block.position.y;
+            if (map.upper > map.getHeight())
+                blockSpawner.needBlockSpawn = false;
+
+            int x = map.getIndexX(block.position.x);
+            int y = map.getIndexY(block.position.y);
+
+            map.mapOcuppied[x, y] = true;
+            map.blockCubes[x, y] = block.gameObject;
+            map.score++;
+
+        }
 
     }
 
