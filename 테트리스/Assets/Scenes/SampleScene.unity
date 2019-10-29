@@ -459,6 +459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 0}
+  upper: 0
   needBlockSpawn: 0
 --- !u!1 &1480857333
 GameObject:
@@ -489,6 +490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e83ce8dd539b82f41bd0a55f76e01d46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upper: 0
 --- !u!4 &1480857335
 Transform:
   m_ObjectHideFlags: 0
