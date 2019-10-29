@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7560642971694795090}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,9 +100,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1453786361093748929}
+  - component: {fileID: 395082405594028292}
+  - component: {fileID: 103065143522531700}
   m_Layer: 0
   m_Name: Block2
-  m_TagString: Block
+  m_TagString: BlockParent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,6 +127,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &395082405594028292
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892655079863763485}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 3.6, y: 1.2, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &103065143522531700
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892655079863763485}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1.2, y: 1.2, z: 1}
+  m_Center: {x: 1.2, y: 1.2, z: 0}
 --- !u!1 &2770149184857643128
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,7 +167,7 @@ GameObject:
   - component: {fileID: 8113663842026865538}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -230,7 +258,7 @@ GameObject:
   - component: {fileID: 3507392607717850932}
   m_Layer: 0
   m_Name: Cube (2)
-  m_TagString: Untagged
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -321,7 +349,7 @@ GameObject:
   - component: {fileID: 1821978444514874903}
   m_Layer: 0
   m_Name: Cube (3)
-  m_TagString: Untagged
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

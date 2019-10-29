@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
-    private int width;
-    private int height;
-    protected GameObject[,] map; 
+    private float width;
+    private float height;
+    protected GameObject[,] map;
+    public bool[,] mapOcuppied; 
     private bool isBuilt = false;
     Material cubeMaterial;
+    BlockSpawner blockSpawner;
    
     private void buildMap()
     {
@@ -22,6 +24,7 @@ public class MapManager : MonoBehaviour
                 Renderer rend = mapBox.GetComponent<Renderer>();
                 rend.material = cubeMaterial;
                 map[x, y] = mapBox;
+                mapOcuppied[x, y] = false;
                 
             }
         }
@@ -31,9 +34,10 @@ public class MapManager : MonoBehaviour
     void Start()
     {
         map = new GameObject[10, 20];
-        width = 12;
-        height = 24;
+        width = 10.8f;
+        height = 22.8f;
         cubeMaterial = new Material(Resources.Load("TranslucentCubeMaterial") as Material);
+        blockSpawner = GameObject.Find("Spawner").GetComponent<BlockSpawner>();
         buildMap();
         isBuilt = true;
     }
@@ -44,16 +48,21 @@ public class MapManager : MonoBehaviour
         
     }
 
+    private void updatMapOcuppied()
+    {
+        GameObject block = blockSpawner.getBlock();
+    }
+
     public bool isMapBuilt()
     {
         return isBuilt;
     }
 
-    public int getWidth()
+    public float getWidth()
     {
         return width;
     }
-    public int getHeight()
+    public float getHeight()
     {
         return height;
     }
