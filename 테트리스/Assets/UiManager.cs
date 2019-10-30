@@ -29,20 +29,22 @@ public class UiManager : MonoBehaviour
         if(Combo.gameObject.activeSelf)
             time += Time.deltaTime;
 
+        //평소에는 게임오버를 꺼놓음
         GameOver.gameObject.SetActive(false);
 
         Score.text = "SCORE : " + map.score;
 
+        //게임 오버가 되었을 때 나타나기
         if (map.gameOver)
             GameOver.gameObject.SetActive(true);
         
-        if(map.combo > 0)
+        if(map.combo > 0)//콤보일때
         {
             Combo.gameObject.SetActive(true);
             BonusScore.text = "BONUSE SCORE " + map.bonusScore;
             Combo.text = "COMBO" + map.combo;            
         }
-        if (time > 2f)
+        if (time > 2f) //콤보 텍스트 2초 동안 활성화
         {
             Combo.gameObject.SetActive(false);
             time = 0;
@@ -51,7 +53,7 @@ public class UiManager : MonoBehaviour
         
     }
 
-    //재시작을 위한 것
+    //재시작 -> scene을 다시 불러오기
     public void loadScene()
     {
         SceneManager.LoadScene("Main");

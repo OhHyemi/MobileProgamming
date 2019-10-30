@@ -23,6 +23,7 @@ public class MapManager : MonoBehaviour
     public int combo;
     public int bonusScore;
 
+    //맵 생성
     private void buildMap()
     {
         for(int x = 0; x < 10; x++)
@@ -38,16 +39,9 @@ public class MapManager : MonoBehaviour
                 mapOcuppied[x, y] = false;
                 
             }
-        }
-
-       
+        }          
     }
 
-    // Start is called before the first frame update
-    private void Awake()
-    {
-        
-    }
     void Start()
     {
         map = new GameObject[10, 20];
@@ -70,55 +64,60 @@ public class MapManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (upper >= height)
+        //게임 오버 조건 블록이 맵보다 높이 있을 때
+        if (upper > height)
         {
+            //맵 비활성화
             active = false;
             gameOver = true;
 
         }
 
+        //맵이 활성화되어있을 때만 업데이트하기.
         if (active)
             updateMap();
-       
-
+      
     }
 
 
     private void updateMap()
     {
+        //라인이 꽉찼는지 확인하고 차있으면 지우고 윗라인을 아랫라인으로 내림. 
         for(int y =0; y <= getIndexY(upper); y++)
         {
             if(isLineFullyOcuppied(y))
             {
                 eraseFullyOcuppiedLine(y);
                 downLines(y);
+                //한줄을 깨면 콤보, 한꺼번에 많은 줄을 깨면 콤보레벨 증가, 
                 combo++;
-                Debug.Log(combo);
-                bonusScore = combo * 20;
-                score += bonusScore;
-                break;              
+                bonusScore = combo * 20;//콤보레벨이 클 수 록 얻는 보너스 포인트도 커짐(20,40,80..)
+                score += bonusScore;//스코어 업데이트
+
+                break;
             }
 
             //라인 지울 것이 없을 때
-            if (!isLineFullyOcuppied(y) && y == getIndexY(upper))
+            if(!isLineFullyOcuppied(y) && y == getIndexY(upper))
             {
-                combo = 0;//콤보 초기화
+                combo =0;//콤보 초기화
                 bonusScore = 0;//보너스점수 초기화
             }
         }
        
     }
-
+    
+    //라인 지우기
     private void eraseFullyOcuppiedLine(int y)
     {
         for (int x = 0; x < 10; x++)
         {
             mapOcuppied[x, y] = false;
-           
             Destroy(blockCubes[x, y]);
         }
     }
     
+    //윗라인들을 한칸씩 내리기
     private void downLines(int y)
     {
         for (int i = y; i <= getIndexY(upper); i++)
@@ -144,6 +143,7 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    //라인이 꽉 찼는지 확인하기
     private bool isLineFullyOcuppied(int y)
     {     
         for (int x = 0; x < 10; x++)
@@ -155,6 +155,7 @@ public class MapManager : MonoBehaviour
         return true;     
     }
 
+    //소숫점 연산 오차를 보완하기 위해 만든 함수(mapOcuppied, blockCubes에 쓰일 인덱스를 얻기 위함)
     public int getIndexX(float posX)
     {
         float range = -0.6f;
