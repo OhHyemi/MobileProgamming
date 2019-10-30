@@ -213,8 +213,12 @@ public class BlockController : MonoBehaviour
                 continue;
 
             map.upper = map.upper > block.position.y ? map.upper : block.position.y;
-            if (map.upper > map.getHeight())
+
+            if (map.upper >= map.getHeight() )
+            {
                 blockSpawner.needBlockSpawn = false;
+                return;
+            }
 
             int x = map.getIndexX(block.position.x);
             int y = map.getIndexY(block.position.y);

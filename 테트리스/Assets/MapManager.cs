@@ -70,7 +70,7 @@ public class MapManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (upper > height)
+        if (upper >= height)
         {
             active = false;
             gameOver = true;
