@@ -42,7 +42,7 @@ public class UiManager : MonoBehaviour
             BonusScore.text = "BONUSE SCORE " + map.bonusScore;
             Combo.text = "COMBO" + map.combo;            
         }
-        if (time > 5f)
+        if (time > 2f)
         {
             Combo.gameObject.SetActive(false);
             time = 0;

@@ -77,11 +77,10 @@ public class MapManager : MonoBehaviour
 
         }
 
-       
-
         if (active)
             updateMap();
-      
+       
+
     }
 
 
@@ -94,15 +93,16 @@ public class MapManager : MonoBehaviour
                 eraseFullyOcuppiedLine(y);
                 downLines(y);
                 combo++;
+                Debug.Log(combo);
                 bonusScore = combo * 20;
                 score += bonusScore;
-                
+                break;              
             }
 
             //라인 지울 것이 없을 때
-            if(!isLineFullyOcuppied(y) && y == getIndexY(upper))
+            if (!isLineFullyOcuppied(y) && y == getIndexY(upper))
             {
-                combo =0;//콤보 초기화
+                combo = 0;//콤보 초기화
                 bonusScore = 0;//보너스점수 초기화
             }
         }
@@ -114,8 +114,7 @@ public class MapManager : MonoBehaviour
         for (int x = 0; x < 10; x++)
         {
             mapOcuppied[x, y] = false;
-            Debug.Log(x + " " + y + "  ");
-            Debug.Log(mapOcuppied[x, y]);
+           
             Destroy(blockCubes[x, y]);
         }
     }
